@@ -2,10 +2,8 @@ package org.cbh.tests;
 
 import com.google.common.util.concurrent.Uninterruptibles;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,21 +12,14 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
-public class BasicTest {
+
+public final class BasicTest extends BaseTest{
 
     @Test
     private void endToEndTest()
     {
-        System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//Drivers//chromedriver");
-        WebDriver driver = new ChromeDriver();
 
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
-
-        driver.get("https://www.amazon.in");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
@@ -42,6 +33,8 @@ public class BasicTest {
         wait.until(ExpectedConditions.visibilityOf(subCategory)).click();
 
         WebElement brand = driver.findElement(By.xpath("//span[text()='Samsung' and @dir='auto']"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();",brand);
         wait.until(ExpectedConditions.visibilityOf(brand)).click();
 
         WebElement drpDown = driver.findElement(By.xpath("//select[@name='s']"));
@@ -62,14 +55,11 @@ public class BasicTest {
             driver.switchTo().window(windowHandles.next());
         }
 
-
-
         List<WebElement> aboutThisProdList = driver.findElements(By.xpath("//div[@id='feature-bullets']/ul/li"));
 
         aboutThisProdList.forEach(x-> System.out.println(x.getText()));
 
         Uninterruptibles.sleepUninterruptibly(Duration.ofSeconds(3));
-        driver.quit();
 
     }
 }
