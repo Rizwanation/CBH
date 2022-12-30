@@ -16,6 +16,7 @@ public final class ExtentReport {
     private static ExtentReports extent;
     private static ExtentTest test;
 
+
     public static void initReports()
     {
         extent = new ExtentReports();
@@ -35,11 +36,12 @@ public final class ExtentReport {
 
     public static void createTest(String testname)
     {
-        test = extent.createTest (testname);
+        test = extent.createTest(testname);
     }
 
     public static ExtentTest getTestInstance()
     {
+
         return test;
     }
 

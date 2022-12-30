@@ -32,19 +32,19 @@ public class Listeners implements ITestListener, ISuiteListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        ExtentReport.getTestInstance().pass(result.getMethod().getMethodName() + " failed.");
+        ExtentReport.getTestInstance().fail(result.getMethod().getMethodName() + " failed.");
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        ExtentReport.getTestInstance().pass(result.getMethod().getMethodName() + " got skipped.");
+        ExtentReport.getTestInstance().skip(result.getMethod().getMethodName() + " got skipped.");
     }
 
 
 
     @Override
     public void onTestFailedWithTimeout(ITestResult result) {
-        ExtentReport.getTestInstance().pass(result.getMethod().getMethodName() + " failed due to timeout.");
+        ExtentReport.getTestInstance().fail(result.getMethod().getMethodName() + " failed due to timeout.");
     }
 
 }
