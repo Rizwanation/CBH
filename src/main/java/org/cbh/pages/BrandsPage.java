@@ -14,19 +14,19 @@ public final class BrandsPage extends BasePage{
 
     public BrandsPage selectValueInPriceDropDown()
     {
-        waitAndclickOnElement(priceDropDownLocator);
+        waitAndClickOnElement(priceDropDownLocator);
         getTestInstance().log(Status.PASS,"Clicked on Sort By Dropdown");
-        waitAndclickOnElement(optionHighToLowLocator);
+        waitAndClickOnElement(optionHighToLowLocator);
         getTestInstance().log(Status.PASS,"Selected \"Price: High to Low\"" );
-        waitForPageUrlUpdate();
+        waitUntilUrlContains("price-desc-rank");
         getTestInstance().log(Status.PASS,"Verified products list updated after sorting.");
         return this;
     }
 
     public ProductPage waitForAndClickOnProductByPosition(int position)
     {
-        waitForVisibilityOfList(allProductsLocator).get(position - 1).click();
-        getTestInstance().log(Status.PASS,"Clicked on second product");
+        waitForVisibilityOfListOfElements(allProductsLocator).get(position - 1).click();
+        getTestInstance().log(Status.PASS,"Clicked on product on "+ position + " position");
         switchWindow();
         getTestInstance().log(Status.PASS,"Switched to new window/tab");
         return new ProductPage();

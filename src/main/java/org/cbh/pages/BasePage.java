@@ -1,5 +1,6 @@
 package org.cbh.pages;
 
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -9,78 +10,63 @@ import java.time.Duration;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.cbh.driver.Driver.driver;
-import static org.cbh.driver.Driver.getDriver;
+import static org.cbh.driver.Driver.getDriverInstance;
+import static org.cbh.reports.ExtentReport.getTestInstance;
 
-public class BasePage {
-    //this class holds utility functions that can be used by all page classes
-    WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(20));
+class BasePage {
+    //package-private class - contains utility methods - to be extended by all page classes
+    WebDriverWait wait = new WebDriverWait(getDriverInstance(), Duration.ofSeconds(20));
 
-    protected void waitAndclickOnElement(By locator)
+    //wait and click on single element
+    protected void waitAndClickOnElement(By locator)
     {
-        waitForElementToBeClickable(locator).click();
+        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
-    protected WebElement waitForVisibility(By locator)
+    protected void waitUntilUrlContains(String urlShouldContain)
+    {
+        wait.until(ExpectedConditions.urlContains(urlShouldContain));
+    }
+
+    //wait for visibility of single element by locator
+    protected WebElement waitForElementToBeVisible(By locator)
     {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    protected List<WebElement> waitForVisibilityOfList(By locator)
+    //wait for visibility of list of elements by locator
+    protected List<WebElement> waitForVisibilityOfListOfElements(By locator)
     {
         return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
 
-    protected void sendKeys(WebElement element,String value)
-    {
-        element.sendKeys(value);
-    }
-
-    protected void scrollElementIntoView(By locator)
-    {
-        JavascriptExecutor javaScriptExecutor = (JavascriptExecutor) getDriver();
-        WebElement element = getDriver().findElement(locator);
-        javaScriptExecutor.executeScript("arguments[0].scrollIntoView;",element);
-    }
-
-    private WebElement waitForElementToBeClickable(By locator)
-    {
-        return wait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
-
-
-    protected By GetByLocatorFromGenericLocatorString(String genericLocator,String value)
+    protected By getByLocatorFromGenericLocatorString(String genericLocator,String value)
     {
         By locator = By.xpath(genericLocator.replace("%value%",value));
         return locator;
     }
 
-    protected WebElement findElementFromLocator(By locator)
-    {
-        return getDriver().findElement(locator);
-    }
-
     protected List<WebElement> findElementsFromLocator(By locator)
     {
-        return waitForVisibilityOfList(locator);
+        return waitForVisibilityOfListOfElements(locator);
     }
 
     protected void switchWindow()
     {
-        Iterator<String> windowHandles = getDriver().getWindowHandles().iterator();
+        Iterator<String> windowHandles = getDriverInstance().getWindowHandles().iterator();
         while (windowHandles.hasNext())
         {
-            getDriver().switchTo().window(windowHandles.next());
+            getDriverInstance().switchTo().window(windowHandles.next());
         }
-        System.out.println(driver.getCurrentUrl());
+        System.out.println(getDriverInstance().getCurrentUrl());
 
     }
 
-    protected void waitForPageUrlUpdate()
+    protected void waitAndScrollToElement(By locator)
     {
-        wait.until(ExpectedConditions.urlContains("price-desc-rank"));
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) getDriverInstance();
+        javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);",waitForElementToBeVisible(locator));
+        getTestInstance().log(Status.PASS,"Scrolled to element");
     }
-
 
 }

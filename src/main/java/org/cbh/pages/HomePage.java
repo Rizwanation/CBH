@@ -16,26 +16,25 @@ public final class HomePage extends BasePage {
 
     public HomePage clickHamburgerMenu()
     {
-        waitAndclickOnElement(hamburgerMenu);
+        waitAndClickOnElement(hamburgerMenu);
         getTestInstance().log(Status.PASS,"Clicked Hamburger Menu Button");
-
         return this;
     }
 
     public HomePage clickCategoryFromHamburgerMenu(String categoryName)
     {
-        String categoryLocatorPath = genericCategoryPath.replace("%value%",categoryName);
-        By categoryLocator = By.xpath(categoryLocatorPath);
-        waitAndclickOnElement(categoryLocator);
+        By categoryLocator = getByLocatorFromGenericLocatorString(genericCategoryPath,categoryName);
+        waitAndScrollToElement(categoryLocator);
+        waitAndClickOnElement(categoryLocator);
         getTestInstance().log(Status.PASS,"Selected Category: " + categoryName);
         return this;
     }
 
     public CategoriesPage clickSubCategoryFromHamburgerMenu(String subCategoryName)
     {
-        String subCategoryLocatorPath = genericSubCategoryPath.replace("%value%",subCategoryName);
-        By subCategoryLocator = By.xpath(subCategoryLocatorPath);
-        waitAndclickOnElement(subCategoryLocator);
+        By subCategoryLocator = getByLocatorFromGenericLocatorString(genericSubCategoryPath,subCategoryName);
+        waitAndScrollToElement(subCategoryLocator);
+        waitAndClickOnElement(subCategoryLocator);
         getTestInstance().log(Status.PASS,"Selected SubCategory: " + subCategoryName);
         return new CategoriesPage();
     }

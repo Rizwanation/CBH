@@ -6,9 +6,11 @@ import org.testng.annotations.Test;
 
 
 public final class BasicTest extends BaseTest{
+    //final because this class will not be extended
 
     @Test
     private void endToEndTest()
+            //private because only this class will use it
     {
 
 
@@ -19,12 +21,9 @@ public final class BasicTest extends BaseTest{
                 .selectBrandNameFromHamburgerMenu("Samsung")
                 .selectValueInPriceDropDown()
                 .waitForAndClickOnProductByPosition(2)
-                .printFeaturesToConsole();
-
-
-        //        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        //        js.executeScript("arguments[0].scrollIntoView();",brand);
-        //        wait.until(ExpectedConditions.visibilityOf(brand)).click();
-
+                .printProductAboutListToConsoleAndReport();
+        //Add Product Features List Assertion
+        //Change Test Name
+        //Change Class/File Name
     }
 }

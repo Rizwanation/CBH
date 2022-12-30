@@ -2,31 +2,32 @@ package org.cbh.driver;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public final class Driver {
-    public static WebDriver driver;
+    //final so it can't be extended
+    private static WebDriver driverInstance;
 
-    public static WebDriver getDriver()
+    private Driver()
+    {}
+
+    public static WebDriver getDriverInstance()
     {
-        if(Objects.isNull(driver)) {
+        if(Objects.isNull(driverInstance)) {
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//Drivers//chromedriver");
-            driver = new ChromeDriver();
-            driver.manage().window().maximize();
-            return driver;
+            driverInstance = new ChromeDriver();
+            driverInstance.manage().window().maximize();
+            return driverInstance;
         }
-        return driver;
+        return driverInstance;
     }
 
     public static void quitDriver()
     {
-        if(Objects.nonNull(driver))
+        if(Objects.nonNull(driverInstance))
         {
-            driver.quit();
+            driverInstance.quit();
+            driverInstance = null;
         }
     }
-
-
 }
