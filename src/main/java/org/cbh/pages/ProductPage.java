@@ -3,8 +3,9 @@ package org.cbh.pages;
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import java.util.List;
+
+
 
 import static org.cbh.reports.ExtentReport.getTestInstance;
 
@@ -14,15 +15,22 @@ public final class ProductPage extends BasePage{
 
     public void printProductAboutListToConsoleAndReport()
     {
-        findElementsFromLocator(aboutThisProdList)
-                .forEach(element -> {getTestInstance().log(Status.PASS,element.getText());
-                    System.out.println(element.getText());});
+        String featuresList = "";
+        for (WebElement element : findElementsFromLocator(aboutThisProdList)) {
+            featuresList += element.getText() +"\n";
+        }
 
-        getTestInstance().log(Status.PASS,"Features list of product printed to console and report");
+        getTestInstance().log(Status.PASS,"Printing 'About This Item' Section below: ");
+        featuresList = featuresList.substring(0,featuresList.length()-1); //to get rid of new line character after line
+        getTestInstance().log(Status.PASS,featuresList);
+        System.out.println(featuresList);
+        getTestInstance().log(Status.PASS,"'About This Item' printed to console and report");
 
     }
 
-    public List<WebElement> getAboutThisProdList() {
+    public List<WebElement> getAboutThisProductList() {
         return waitForVisibilityOfListOfElements(aboutThisProdList);
     }
+
+
 }
