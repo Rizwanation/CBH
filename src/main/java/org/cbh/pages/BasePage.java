@@ -16,9 +16,10 @@ import static org.cbh.reports.ExtentReport.getTestInstance;
 class BasePage {
     //package-private class - contains utility methods - to be extended by all page classes
     WebDriverWait wait = new WebDriverWait(getDriverInstance(), Duration.ofSeconds(20));
+    JavascriptExecutor javascriptExecutor = (JavascriptExecutor) getDriverInstance();
 
     //wait and click on single element
-    protected void waitAndClickOnElement(By locator)
+    protected void waitForAndClickOnElement(By locator)
     {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
@@ -33,7 +34,6 @@ class BasePage {
     {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
-
     //wait for visibility of list of elements by locator
     protected List<WebElement> waitForVisibilityOfListOfElements(By locator)
     {
@@ -58,15 +58,12 @@ class BasePage {
         {
             getDriverInstance().switchTo().window(windowHandles.next());
         }
-        System.out.println(getDriverInstance().getCurrentUrl());
-
     }
 
-    protected void waitAndScrollToElement(By locator)
+    protected void waitForAndScrollToElement(By locator, String elementName)
     {
-        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) getDriverInstance();
-        javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);",waitForElementToBeVisible(locator));
-        getTestInstance().log(Status.PASS,"Scrolled to element");
+        javascriptExecutor.executeScript("arguments[0].scrollIntoView();",waitForElementToBeVisible(locator));
+        getTestInstance().log(Status.PASS,"Scrolled to " + elementName);
     }
 
 }

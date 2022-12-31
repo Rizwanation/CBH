@@ -10,9 +10,10 @@ public final class CategoriesPage extends BasePage{
     public BrandsPage selectBrandNameFromHamburgerMenu(String brandName)
     {
         By brandNameLocator = getByLocatorFromGenericLocatorString(brandNamePath,brandName);
-        waitAndScrollToElement(brandNameLocator);
-        waitAndClickOnElement(brandNameLocator);
+        waitForAndScrollToElement(brandNameLocator,brandName);
+        waitForAndClickOnElement(brandNameLocator);
         getTestInstance().log(Status.PASS,"Selected brand: " + brandName);
+        waitUntilUrlContains(brandName);
 
         return new BrandsPage();
     }

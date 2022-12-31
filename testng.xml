@@ -7,7 +7,7 @@
     </listeners>
     <test name="CBH">
         <classes>
-            <class name="org.cbh.tests.BasicTest">
+            <class name="org.cbh.tests.ProductFeaturesTest">
             </class>
         </classes>
     </test>
