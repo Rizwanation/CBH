@@ -5,9 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import java.util.List;
 
+import static org.cbh.reports.ExtentTestManager.getExtentTestInstance;
 
-
-import static org.cbh.reports.ExtentReport.getTestInstance;
 
 public final class ProductPage extends BasePage{
 
@@ -20,11 +19,11 @@ public final class ProductPage extends BasePage{
             featuresList += element.getText() +"\n";
         }
 
-        getTestInstance().log(Status.PASS,"Printing 'About This Item' Section below: ");
+        getExtentTestInstance().log(Status.PASS,"Printing 'About This Item' Section below: ");
         featuresList = featuresList.substring(0,featuresList.length()-1); //to get rid of new line character after line
-        getTestInstance().log(Status.PASS,featuresList);
+        getExtentTestInstance().log(Status.PASS,featuresList);
         System.out.println(featuresList);
-        getTestInstance().log(Status.PASS,"'About This Item' printed to console and report");
+        getExtentTestInstance().log(Status.PASS,"'About This Item' printed to console and report");
 
     }
 

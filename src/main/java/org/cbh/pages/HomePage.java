@@ -2,7 +2,8 @@ package org.cbh.pages;
 
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
-import static org.cbh.reports.ExtentReport.getTestInstance;
+
+import static org.cbh.reports.ExtentTestManager.getExtentTestInstance;
 
 
 public final class HomePage extends BasePage {
@@ -14,10 +15,16 @@ public final class HomePage extends BasePage {
 
 
 
+    public HomePage openHomePage(String homePageUrl)
+    {
+        navigateToUrl(homePageUrl);
+        getExtentTestInstance().pass("Opened homepage");
+        return this;
+    }
     public HomePage clickHamburgerMenu()
     {
         waitForAndClickOnElement(hamburgerMenu);
-        getTestInstance().log(Status.PASS,"Clicked Hamburger Menu Button");
+        getExtentTestInstance().log(Status.PASS,"Clicked Hamburger Menu Button");
         return this;
     }
 
@@ -26,7 +33,7 @@ public final class HomePage extends BasePage {
         By categoryLocator = getByLocatorFromGenericLocatorString(genericCategoryPath,categoryName);
         waitForAndScrollToElement(categoryLocator, categoryName);
         waitForAndClickOnElement(categoryLocator);
-        getTestInstance().log(Status.PASS,"Selected Category: " + categoryName);
+        getExtentTestInstance().log(Status.PASS,"Selected Category: " + categoryName);
         return this;
     }
 
@@ -35,7 +42,7 @@ public final class HomePage extends BasePage {
         By subCategoryLocator = getByLocatorFromGenericLocatorString(genericSubCategoryPath,subCategoryName);
         waitForAndScrollToElement(subCategoryLocator,subCategoryName);
         waitForAndClickOnElement(subCategoryLocator);
-        getTestInstance().log(Status.PASS,"Selected SubCategory: " + subCategoryName);
+        getExtentTestInstance().log(Status.PASS,"Selected SubCategory: " + subCategoryName);
         return new CategoriesPage();
     }
 

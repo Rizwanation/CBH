@@ -2,7 +2,9 @@ package org.cbh.pages;
 
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
-import static org.cbh.reports.ExtentReport.getTestInstance;
+
+import static org.cbh.reports.ExtentTestManager.getExtentTestInstance;
+
 
 public final class CategoriesPage extends BasePage{
     private String brandNamePath = "//span[text()='%value%' and @dir='auto']";
@@ -12,7 +14,7 @@ public final class CategoriesPage extends BasePage{
         By brandNameLocator = getByLocatorFromGenericLocatorString(brandNamePath,brandName);
         waitForAndScrollToElement(brandNameLocator,brandName);
         waitForAndClickOnElement(brandNameLocator);
-        getTestInstance().log(Status.PASS,"Selected brand: " + brandName);
+        getExtentTestInstance().log(Status.PASS,"Selected brand: " + brandName);
         waitUntilUrlContains(brandName);
 
         return new BrandsPage();

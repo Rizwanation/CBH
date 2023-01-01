@@ -1,33 +1,30 @@
 package org.cbh.driver;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.Objects;
 
 public final class Driver {
     //final so it can't be extended
-    private static WebDriver driverInstance;
-
     private Driver()
     {}
 
-    public static WebDriver getDriverInstance()
+    public static void startWebDriver()
     {
-        if(Objects.isNull(driverInstance)) {
+        if(Objects.isNull(DriverManager.getDriverInstance())) {
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//Drivers//chromedriver");
-            driverInstance = new ChromeDriver();
-            driverInstance.manage().window().maximize();
-            return driverInstance;
+            DriverManager.setDriver(new ChromeDriver());
+            DriverManager.getDriverInstance().manage().window().maximize();
+
         }
-        return driverInstance;
+
     }
 
-    public static void quitDriver()
+    public static void quitWebDriver()
     {
-        if(Objects.nonNull(driverInstance))
+        if(Objects.nonNull(DriverManager.getDriverInstance()))
         {
-            driverInstance.quit();
-            driverInstance = null;
+            DriverManager.getDriverInstance().quit();
+            DriverManager.unload();
         }
     }
 }

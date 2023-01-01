@@ -2,7 +2,7 @@ package org.cbh.pages;
 
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
-import static org.cbh.reports.ExtentReport.getTestInstance;
+import static org.cbh.reports.ExtentTestManager.getExtentTestInstance;
 
 
 public final class BrandsPage extends BasePage{
@@ -17,24 +17,24 @@ public final class BrandsPage extends BasePage{
     public BrandsPage clickSortByDropDown()
     {
         waitForAndClickOnElement(sortByDropDownLocator);
-        getTestInstance().pass("Clicked 'Sort By' dropdown");
+        getExtentTestInstance().pass("Clicked 'Sort By' dropdown");
         return this;
     }
     public BrandsPage selectOptionInSortByDropDown(String optionText)
     {
         waitForAndClickOnElement(getByLocatorFromGenericLocatorString(optionHighToLowLocatorString,optionText));
-        getTestInstance().log(Status.PASS,"Selected: " + optionText +" from dropdown");
+        getExtentTestInstance().log(Status.PASS,"Selected: " + optionText +" from dropdown");
         waitUntilUrlContains("price-desc-rank");
-        getTestInstance().log(Status.PASS,"Verified products list updated after sorting.");
+        getExtentTestInstance().log(Status.PASS,"Verified products list updated after sorting.");
         return this;
     }
 
     public ProductPage waitForAndClickOnProductByPosition(int position)
     {
         waitForVisibilityOfListOfElements(allProductsLocator).get(position - 1).click();
-        getTestInstance().log(Status.PASS,"Clicked on product on position: "+ position);
+        getExtentTestInstance().log(Status.PASS,"Clicked on product on position: "+ position);
         switchWindow();
-        getTestInstance().log(Status.PASS,"Switched to new window/tab");
+        getExtentTestInstance().log(Status.PASS,"Switched to new window/tab");
         return new ProductPage();
     }
 }
