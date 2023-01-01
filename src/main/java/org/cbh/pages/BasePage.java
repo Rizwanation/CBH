@@ -1,6 +1,7 @@
 package org.cbh.pages;
 
 import com.aventstack.extentreports.Status;
+import org.cbh.driver.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -10,15 +11,21 @@ import java.time.Duration;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.cbh.driver.Driver.getDriverInstance;
-import static org.cbh.reports.ExtentReport.getTestInstance;
+import static org.cbh.reports.ExtentTestManager.getExtentTestInstance;
+
 
 class BasePage {
     //package-private class - contains utility methods - to be extended by all page classes
-    WebDriverWait wait = new WebDriverWait(getDriverInstance(), Duration.ofSeconds(20));
-    JavascriptExecutor javascriptExecutor = (JavascriptExecutor) getDriverInstance();
+    WebDriverWait wait = new WebDriverWait(DriverManager.getDriverInstance(), Duration.ofSeconds(20));
+    JavascriptExecutor javascriptExecutor = (JavascriptExecutor) DriverManager.getDriverInstance();
 
     //wait and click on single element
+
+    protected void navigateToUrl(String url)
+    {
+        DriverManager.getDriverInstance().get(url);
+    }
+
     protected void waitForAndClickOnElement(By locator)
     {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
@@ -53,17 +60,17 @@ class BasePage {
 
     protected void switchWindow()
     {
-        Iterator<String> windowHandles = getDriverInstance().getWindowHandles().iterator();
+        Iterator<String> windowHandles = DriverManager.getDriverInstance().getWindowHandles().iterator();
         while (windowHandles.hasNext())
         {
-            getDriverInstance().switchTo().window(windowHandles.next());
+            DriverManager.getDriverInstance().switchTo().window(windowHandles.next());
         }
     }
 
     protected void waitForAndScrollToElement(By locator, String elementName)
     {
         javascriptExecutor.executeScript("arguments[0].scrollIntoView();",waitForElementToBeVisible(locator));
-        getTestInstance().log(Status.PASS,"Scrolled to " + elementName);
+        getExtentTestInstance().log(Status.PASS,"Scrolled to " + elementName);
     }
 
 }

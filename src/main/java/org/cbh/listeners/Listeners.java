@@ -5,6 +5,8 @@ import org.testng.*;
 
 import java.io.IOException;
 
+import static org.cbh.reports.ExtentTestManager.getExtentTestInstance;
+
 public class Listeners implements ITestListener, ISuiteListener {
     @Override
     public void onStart(ISuite suite) {
@@ -27,24 +29,24 @@ public class Listeners implements ITestListener, ISuiteListener {
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        ExtentReport.getTestInstance().pass(result.getMethod().getMethodName() + " passed.");
+        getExtentTestInstance().pass(result.getMethod().getMethodName() + " passed.");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        ExtentReport.getTestInstance().fail(result.getMethod().getMethodName() + " failed.");
+        getExtentTestInstance().fail(result.getMethod().getMethodName() + " failed.");
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        ExtentReport.getTestInstance().skip(result.getMethod().getMethodName() + " got skipped.");
+        getExtentTestInstance().skip(result.getMethod().getMethodName() + " got skipped.");
     }
 
 
 
     @Override
     public void onTestFailedWithTimeout(ITestResult result) {
-        ExtentReport.getTestInstance().fail(result.getMethod().getMethodName() + " failed due to timeout.");
+        getExtentTestInstance().fail(result.getMethod().getMethodName() + " failed due to timeout.");
     }
 
 }

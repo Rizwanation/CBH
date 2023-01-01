@@ -13,15 +13,13 @@ public final class ExtentReport {
 
     private ExtentReport() {}
 
-    private static ExtentReports extent;
-    private static ExtentTest test;
-
+    private static ExtentReports extentReport;
 
     public static void initReports()
     {
-        extent = new ExtentReports();
+        extentReport = new ExtentReports();
         ExtentSparkReporter spark = new ExtentSparkReporter ("index.html");
-        extent.attachReporter(spark);
+        extentReport.attachReporter(spark);
         spark.config().setTheme (Theme.STANDARD);
         spark.config().setDocumentTitle("CBH Report");
         spark.config().setReportName ("Assessment Test");
@@ -29,20 +27,14 @@ public final class ExtentReport {
 
 
     public static void flushReports() throws IOException {
-        extent.flush();
+        extentReport.flush();
         Desktop.getDesktop().browse(new File("index.html").toURI());
 
     }
 
-    public static void createTest(String testname)
+    public static void createTest(String testName)
     {
-        test = extent.createTest(testname);
-    }
-
-    public static ExtentTest getTestInstance()
-    {
-
-        return test;
+        ExtentTestManager.setExtentTest(extentReport.createTest(testName));
     }
 
 
