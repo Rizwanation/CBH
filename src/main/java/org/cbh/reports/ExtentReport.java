@@ -1,7 +1,6 @@
 package org.cbh.reports;
 
 import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
@@ -20,6 +19,7 @@ public final class ExtentReport {
         extentReport = new ExtentReports();
         ExtentSparkReporter spark = new ExtentSparkReporter ("index.html");
         extentReport.attachReporter(spark);
+
         spark.config().setTheme (Theme.STANDARD);
         spark.config().setDocumentTitle("CBH Report");
         spark.config().setReportName ("Assessment Test");

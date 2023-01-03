@@ -13,7 +13,7 @@ class BaseTest {
         //marked as protected to avoid creation of its instances outside child classes
     }
     @BeforeMethod
-    protected void initDriver() {
+    protected void initDriver() throws Exception {
 
         Driver.startWebDriver();
     }
