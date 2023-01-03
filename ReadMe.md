@@ -4,8 +4,8 @@
 ## Introduction
 
 This is a Java Maven Selenium Automation Framework and it has the following features:
-- **Parallel Exeuction of tests**
-- **Automation Report Generation with test logs on execution completion**
+- **Parallel Execution of tests**
+- **Automatic Report Generation with test logs on execution completion**
 - **Local Execution and Standalone Selenium Grid Execution**
 
 
@@ -50,11 +50,11 @@ For execution in Standalone Selenium Grid:
 Note : To view execution inside container:
    1. Go to http://localhost:4444/ui#/sessions while test execution is in progress.
    2. In the sessions column, click on the camera icon
-   3. Prompt will ask for password. Enter: secret
+   3. Prompt will ask for a password. Enter: secret
    4. Video can be viewed for test execution.
 
 
-## Video of Test Execution ##
+## Videos of Test Execution ##
 
 ### Local Execution ###
 https://drive.google.com/file/d/1yrTUJ1RXmICzOkwmo1ck4NrMm-JhSoz1/view?usp=share_link
