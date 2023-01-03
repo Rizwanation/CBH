@@ -20,7 +20,6 @@ class BasePage {
     JavascriptExecutor javascriptExecutor = (JavascriptExecutor) DriverManager.getDriverInstance();
 
     //wait and click on single element
-
     protected void navigateToUrl(String url)
     {
         DriverManager.getDriverInstance().get(url);
@@ -49,8 +48,7 @@ class BasePage {
 
     protected By getByLocatorFromGenericLocatorString(String genericLocator,String value)
     {
-        By locator = By.xpath(genericLocator.replace("%value%",value));
-        return locator;
+        return By.xpath(genericLocator.replace("%value%",value));
     }
 
     protected List<WebElement> findElementsFromLocator(By locator)
@@ -72,5 +70,4 @@ class BasePage {
         javascriptExecutor.executeScript("arguments[0].scrollIntoView();",waitForElementToBeVisible(locator));
         getExtentTestInstance().log(Status.PASS,"Scrolled to " + elementName);
     }
-
 }

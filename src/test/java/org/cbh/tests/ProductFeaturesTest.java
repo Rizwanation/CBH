@@ -12,29 +12,11 @@ import java.util.List;
 public final class ProductFeaturesTest extends BaseTest{
     //final because this class will not be extended
 
-    @Test
+    @Test(description = "This test navigates from Homepage to Product page, verifies the 'About This Item' section exists and prints it to console and report")
     private void verifyProductFeaturesListIsPresent()
     {
         //private because only this class will use it
 
-        List<WebElement> ProductFeaturesList = new HomePage()
-                .openHomePage("https://www.amazon.in")
-                .clickHamburgerMenu()
-                .clickCategoryFromHamburgerMenu("TV, Appliances, Electronics")
-                .clickSubCategoryFromHamburgerMenu("Televisions")
-                .selectBrandNameFromHamburgerMenu("Samsung")
-                .clickSortByDropDown()
-                .selectOptionInSortByDropDown("Price: High to Low")
-                .waitForAndClickOnProductByPosition(2)
-                .getAboutThisProductList();
-
-        Assert.assertTrue(ProductFeaturesList.get(1).isDisplayed());
-        new ProductPage().printProductAboutListToConsoleAndReport();
-    }
-
-    @Test()
-    private void verifyProductFeaturesListIsPresent2()
-    {
         List<WebElement> ProductFeaturesList = new HomePage()
                 .openHomePage("https://www.amazon.in")
                 .clickHamburgerMenu()

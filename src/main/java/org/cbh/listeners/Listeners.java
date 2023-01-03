@@ -6,7 +6,7 @@ import org.testng.*;
 import java.io.IOException;
 
 import static org.cbh.reports.ExtentTestManager.getExtentTestInstance;
-
+@org.testng.annotations.Listeners
 public class Listeners implements ITestListener, ISuiteListener {
     @Override
     public void onStart(ISuite suite) {
@@ -24,6 +24,7 @@ public class Listeners implements ITestListener, ISuiteListener {
 
     @Override
     public void onTestStart(ITestResult result) {
+
         ExtentReport.createTest(result.getMethod().getMethodName());
     }
 
@@ -35,11 +36,13 @@ public class Listeners implements ITestListener, ISuiteListener {
     @Override
     public void onTestFailure(ITestResult result) {
         getExtentTestInstance().fail(result.getMethod().getMethodName() + " failed.");
+        getExtentTestInstance().fail(result.getThrowable());
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
         getExtentTestInstance().skip(result.getMethod().getMethodName() + " got skipped.");
+        getExtentTestInstance().skip(result.getThrowable());
     }
 
 
